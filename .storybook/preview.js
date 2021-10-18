@@ -34,6 +34,20 @@ export const globalTypes = {
       ],
     },
   },
+  locale: {
+    name: 'Locale',
+    description: 'Internationalization locale',
+    defaultValue: 'en',
+    toolbar: {
+      icon: 'globe',
+      items: [
+        {value: 'en', right: '🇺🇸', title: 'English'},
+        {value: 'jp', right: '🇯🇵', title: 'Japanese (RTL)'},
+        {value: 'ar', right: '🇦🇪', title: 'Arabic (RTL)'},
+        {value: 'my', right: '🇲🇲', title: 'Burmese'},
+      ],
+    },
+  },
 };
 
 const GlobalStyles = () => (
@@ -50,6 +64,19 @@ export const decorators = [
   (Story, context) => {
     const theme = context.globals.theme;
     const layout = context.globals.theme_layout;
+    const lang = context.globals.locale;
+
+    switch (lang) {
+      case 'jp':
+      case 'ar':
+        document.body.setAttribute('dir', 'rtl');
+        break;
+
+      default:
+        document.body.setAttribute('dir', 'ltr');
+        break;
+    }
+
     switch (layout) {
       default:
       case 'default':

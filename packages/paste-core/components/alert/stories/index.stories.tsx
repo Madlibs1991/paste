@@ -1,27 +1,35 @@
 import * as React from 'react';
-import {withKnobs, boolean, select} from '@storybook/addon-knobs';
+
+import type {Story, Meta} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-import {Text} from '@twilio-paste/text';
-import {Box} from '@twilio-paste/box';
-import {Truncate} from '@twilio-paste/truncate';
+
 import {CustomizationProvider} from '@twilio-paste/customization';
-import {Alert, AlertVariants} from '../src';
+import {Box} from '@twilio-paste/box';
+import {Text} from '@twilio-paste/text';
+import {Truncate} from '@twilio-paste/truncate';
+
+import {Alert} from '../src';
+import {terms} from './i18n';
 
 // eslint-disable-next-line import/no-default-export
 export default {
   title: 'Components/Alert',
-  decorators: [withKnobs],
   component: Alert,
-};
+  argTypes: {onDismiss: {action: 'clicked'}},
+} as Meta;
 
-export const AllVariant = (): React.ReactNode => {
-  const isDismissable = boolean('onDismiss', true);
-  const variantValule = select('variant', Object.keys(AlertVariants), AlertVariants.ERROR) as AlertVariants;
+const Template: Story = ({variant = 'neutral', onDismiss}, {globals: {locale}}) => {
   return (
-    <Alert onDismiss={isDismissable ? action('dismiss') : undefined} variant={variantValule}>
-      <Text as="div">I am an alert</Text>
+    <Alert onDismiss={onDismiss} variant={variant}>
+      <Text as="p">{terms.alertText[locale]}</Text>
     </Alert>
   );
+};
+
+export const Controllable = Template.bind({});
+Controllable.args = {
+  variant: 'neutral',
+  // onDismiss: action('dismiss'),
 };
 
 export const Neutral = (): React.ReactNode => {

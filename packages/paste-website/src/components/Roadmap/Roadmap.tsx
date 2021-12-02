@@ -4,12 +4,12 @@ import {Heading} from '@twilio-paste/heading';
 import {Badge} from '@twilio-paste/badge';
 import {Table, THead, TBody, Tr, Td, Th} from '@twilio-paste/table';
 import {Stack} from '@twilio-paste/stack';
-import {Anchor} from '@twilio-paste/anchor';
 import {LinkIcon} from '@twilio-paste/icons/esm/LinkIcon';
 import {useUID} from '@twilio-paste/uid-library';
 import {Statuses} from './constants';
 import type {RoadmapProps} from './types';
 import {slugify} from '../../utils/RouteUtils';
+import {StyledAnchorHyperlink} from '../Heading';
 
 const StatusBadges = {
   [Statuses.TODO]: (
@@ -47,14 +47,9 @@ const Roadmap: React.FC<RoadmapProps> = ({data}) => {
               <Heading as="h2" variant="heading20">
                 <Box as="span" display="flex" alignItems="center">
                   Release - {release.release}
-                  <Anchor data-cy="anchored-heading-h2" href={`#${releaseSlug}`}>
-                    <LinkIcon
-                      color="colorTextIcon"
-                      decorative={false}
-                      title={`${release.release} page anchor`}
-                      size="sizeIcon40"
-                    />
-                  </Anchor>
+                  <StyledAnchorHyperlink data-cy="anchored-heading-h2" href={`#${releaseSlug}`}>
+                    <LinkIcon decorative={false} title={`${release.release} page anchor`} size="sizeIcon40" />
+                  </StyledAnchorHyperlink>
                 </Box>
               </Heading>
               <Table>

@@ -5,8 +5,9 @@ export type HeadingVariants = 'heading10' | 'heading20' | 'heading30' | 'heading
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement>, Pick<TextProps, 'element'> {
   as: AsTags;
-  className?: never;
+  className?: never; // do we need this still?
   id?: string;
   marginBottom?: 'space0';
   variant: HeadingVariants;
+  display?: string;
 }
